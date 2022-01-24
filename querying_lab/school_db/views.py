@@ -87,7 +87,7 @@ def problem_six(request):
 # BONUS ONE
 # Write a query to find any instructors who are only teaching one single course. Display the instructor and the course
 
-from django.db.models import Count, Q, Avg, Max, Min, FloatField
+from django.db.models import Count, Q, Avg, Max, Min, FloatField, Sum
 def bonus_one(request):
     classes_taught = Instructor.objects.annotate(num_courses=Count('course')).filter(num_courses=1)
     context= { 'courses': classes_taught }
@@ -96,7 +96,14 @@ def bonus_one(request):
 
 # BONUS TWO
 # Display all students along with the number of credits they are taking
-def bonus_two(request): pass
+def bonus_two(request):
+    total_credits = Student.objects.annotate(num_credits = Sum('studentcourse__course__credits'))
+    data_visualization = [item for item in total_credits]
+    context= { 'students': total_credits }
+    return render(request, 'school/bonus_two.html', context)
+
+
+
 # BONUS THREE
 # Find all students who are getting an A in any course and average their GPAs. Display the number of students and their Average GPA
 def bonus_three(request): pass
