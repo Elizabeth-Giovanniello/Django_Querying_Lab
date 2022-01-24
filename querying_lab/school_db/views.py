@@ -28,16 +28,19 @@ def problem_one(request):
 def problem_two(request):
     # Find all instructors hired prior to 2010
     # Order by hire date
+    instructors_hired_before_2010 = Instructor.objects.filter(hire_date__year__lt=2010)
+
+    data_visualization = [item for item in instructors_hired_before_2010]
 
     context = {
-        'instructors': None
+        'instructors': instructors_hired_before_2010
     }
     return render(request, 'school/two.html', context)
 
 def problem_three(request):
     # Find all students who have a A+ in any class and are NOT getting a C+ in any class. 
     # Order the data by student's first name alphabetically.
-
+    students_with_a_plus = 
     context = {
         'student_courses': None
     }
