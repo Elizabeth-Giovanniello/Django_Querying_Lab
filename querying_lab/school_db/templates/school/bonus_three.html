@@ -25,19 +25,17 @@
         </ul>
     </nav>
     <div class="center-text">
-        <h2>Instructors with only one class</h2>
+        <h2>Students with A's</h2>
         <table class="center-table">
             <thead>
                 <tr>
-                    <th>First Name</th><th>Last Name</th><th>Course</th>
+                    <th>Number of Students</th><th>Average GPA</th>
                 </tr>
             </thead>
             <tbody>
-                {% for entry in instructors %}
                 <tr>
-                    <td>{{entry.student.first_name}}</td><td>{{entry.student.last_name}}</td><td>{{entry.grade}}</td>
+                    <td>{{students.id__count}}</td><td>{{students.gpa__avg}}</td>
                 </tr>
-                {% endfor %}
             </tbody>
         </table>
     </div>

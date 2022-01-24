@@ -102,11 +102,16 @@ def bonus_two(request):
     context= { 'students': total_credits }
     return render(request, 'school/bonus_two.html', context)
 
-
-
 # BONUS THREE
-# Find all students who are getting an A in any course and average their GPAs. Display the number of students and their Average GPA
-def bonus_three(request): pass
+# Find all students who are getting an A in any course and average their GPAs. 
+# Display the number of students and their Average GPA
+def bonus_three(request): 
+    students_with_As = Student.objects.filter(studentcourse__grade__icontains="a").distinct()
+    A_student_stats = students_with_As.aggregate(Count('id'), Avg('gpa'))
+
+    data_visualization = [item for item in A_student_stats]
+    context = {'students': A_student_stats}
+    return render(request, 'school/bonus_three.html', context)
 
 # BONUS FOUR
 def bonus_four(request): pass
