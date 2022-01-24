@@ -60,9 +60,10 @@ def problem_four(request):
 def problem_five(request):
     # Find all students getting an A in the Programming class. 
     # Order by last name.
+    programming_students_with_As = StudentCourse.objects.filter(course__name="Programming", grade__icontains='A').order_by('grade')
 
     context = {
-        'student_courses': None
+        'student_courses': programming_students_with_As
     }
     return render(request, 'school/five.html', context)
 
