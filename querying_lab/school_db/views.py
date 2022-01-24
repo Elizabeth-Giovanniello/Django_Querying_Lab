@@ -40,7 +40,7 @@ def problem_two(request):
 def problem_three(request):
     # Find all students who have a A+ in any class and are NOT getting a C+ in any class. 
     # Order the data by student's first name alphabetically.
-    students_with_a_plus = StudentCourse.objects.filter(student__grade='A+')
+    students_with_a_plus = StudentCourse.objects.filter(grade='A+')
 
     data_visualization = [item for item in students_with_a_plus]
 
