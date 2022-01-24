@@ -5,10 +5,10 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: Django",
+            "name": "querying_lab",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}\\querying_lab\\manage.py",
+            "program": "${workspaceFolder}//querying_lab//manage.py",
             "args": [
                 "runserver"
             ],
