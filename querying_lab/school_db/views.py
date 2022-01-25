@@ -38,9 +38,9 @@ def problem_two(request):
     return render(request, 'school/two.html', context)
 
 def problem_three(request):
-    # Find all students who have a A+ in any class and are NOT getting a C+ in any class. 
+    #TODO Find all students who have a A+ in any class and are NOT getting a C+ in any class. 
     # Order the data by student's first name alphabetically.
-    students_with_a_plus = StudentCourse.objects.filter(grade='A+').order_by('student__first_name')
+    students_with_a_plus = StudentCourse.objects.exclude(grade='C+').filter(grade='A+').order_by('student__first_name')
 
     context = {
         'student_courses': students_with_a_plus
@@ -114,8 +114,52 @@ def bonus_three(request):
     return render(request, 'school/bonus_three.html', context)
 
 # BONUS FOUR
-def bonus_four(request): pass
+def bonus_four(request): 
 
 # Write a function that will replace student GPAs in the database with an accurate score based only on their current grades
 # This may require multiple queries
 # See https://www.indeed.com/career-advice/career-development/gpa-scale for a chart of what point value each grade is worth
+    all_students = Student.objects.all()
+    all_student_courses = StudentCourse.objects.all()
+    student_grade_points = {}
+
+    for entry in all_student_courses:
+        if not entry.student.id in student_grade_points.keys():
+            student_grade_points[entry.student.id] = []
+        student_grade_points[entry.student.id].append(convert_grade(entry.grade))
+
+    for student in all_students:
+        student.gpa = average_list(student_grade_points[student.id])
+        student.save(update_fields=['gpa'])
+
+    context = {'students': all_students}
+
+    return render(request, 'school/bonus_four.html', context)
+
+
+def average_list(list):
+    total = 0
+    for item in list:
+        total += item
+    return total / len(list)
+
+def convert_grade(grade) -> float:
+        match grade:
+            case 'A+': return 4
+            case 'A': return 4
+            case 'A-': return 3.7
+            case 'B+': return 3.3
+            case 'B': return 3
+            case 'B-': return 2.7
+            case 'C+': return 2.3
+            case 'C': return 2
+            case 'C-': return 1.7
+            case 'D+': return 1.3
+            case 'D': return 1
+            case 'F': return 0
+            
+    
+
+
+
+    
