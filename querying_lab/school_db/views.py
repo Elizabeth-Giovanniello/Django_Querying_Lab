@@ -38,13 +38,11 @@ def problem_two(request):
     return render(request, 'school/two.html', context)
 
 def problem_three(request):
-    #TODO Find all students who have a A+ in any class and are NOT getting a C+ in any class. 
+    # Find all students who have a A+ in any class and are NOT getting a C+ in any class. 
     # Order the data by student's first name alphabetically.
-    students_with_a_plus = StudentCourse.objects.exclude(grade='C+').filter(grade='A+').order_by('student__first_name')
 
-    context = {
-        'student_courses': students_with_a_plus
-    }
+    students = Student.objects.filter(studentcourse__grade='A+').exclude(studentcourse__grade='C+').distinct().order_by('first_name')
+    context = { 'students': students }
     return render(request, 'school/three.html', context)
 
 def problem_four(request):
@@ -136,7 +134,6 @@ def bonus_four(request):
 
     return render(request, 'school/bonus_four.html', context)
 
-
 def average_list(list):
     total = 0
     for item in list:
@@ -157,9 +154,3 @@ def convert_grade(grade) -> float:
             case 'D+': return 1.3
             case 'D': return 1
             case 'F': return 0
-            
-    
-
-
-
-    

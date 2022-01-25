@@ -21,17 +21,17 @@
         </ul>
     </nav>
     <div class="center-text">
-        <h2 class="center-text">Students With A+</h2>
+        <h2 class="center-text">Students With A+'s' and no C+'s</h2>
         <table class="center-table">
             <thead>
                 <tr>
-                    <th>First Name</th><th>Last Name</th><th>Course</th><th>Grade</th>
+                    <th>First Name</th><th>Last Name</th>
                 </tr>
             </thead>
             <tbody>
-                {% for entry in student_courses %}
+                {% for student in students %}
                 <tr>
-                    <td>{{entry.student.first_name}}</td><td>{{entry.student.last_name}}</td> <td>{{entry.course.name}}</td> <td>{{entry.grade}}</td>
+                    <td>{{student.first_name}}</td><td>{{student.last_name}}</td>
                 </tr>
                 {% endfor %}
             </tbody>
